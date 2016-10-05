@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-title>GAME</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h2>{{ playerUsername }}</h2>
+
+  <ion-list>
+   <ion-label>Question {{ ctr + 1 }} of {{ qQuestions.length }} questions</ion-label>
+   <h3>{{ currentQ.question }}</h3>
+   {{ currentQ.answer }}
+   <ion-list inset>
+          <ion-item *ngFor="let choice of currentQ.choices; let i=index">
+              <ion-label>{{ i }}{{choice}}</ion-label>
+              
+              <ion-radio value="{{ i }}" checked="false" (click)="onSelectRadio(i)"></ion-radio>
+              
+          </ion-item>
+        </ion-list>
+    <button id="submit" value="submit" secondary round block (click)="next()" ion-button>Submit Answer</button>
+    <button secondary round block (click)="nextQ()" ion-button>>>>></button>
+  </ion-list>
+
+</ion-content>

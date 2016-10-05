@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Quiz
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Player name: </ion-label>
+      <ion-input [(ngModel)]="playerName"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button (click)="onClickProceed(playerName)" ion-button round block>PROCEED</button>
+  </div>
+</ion-content>
