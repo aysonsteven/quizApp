@@ -5,6 +5,7 @@ import { questionsList } from '../../providers/questions-list';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { NavParams } from 'ionic-angular';
 export class Game {
 
   answerIndex:number;
-
+  
   quizAnswer;
 
   currentQ:QuestionType;
@@ -23,11 +24,10 @@ export class Game {
   qQuestions;
 
   ctr:number = 0;
-  ctrRandom:number = 0
+  ctrRandom:number = 0;
+  playerUsername: string;
 
-  playerUsername: string
-
-  constructor(public navCtrl: NavController, private navPar: NavParams, private http: Http, private quizSRV: QuestionsService) {
+  constructor(public navCtrl: NavController, private navPar: NavParams, private http: Http, private quizSRV: QuestionsService, private alrtCTRL: AlertController) {
     this.playerUsername = this.navPar.get('myString');
     this.qQuestions = questionsList
 
@@ -37,7 +37,7 @@ export class Game {
    
   }
   onSelectRadio(i){
-    console.log(i)
+    
     this.quizAnswer = i;
   }
 
@@ -51,6 +51,17 @@ export class Game {
     }
     else{
       console.log("end");
+      let endAlrt = this.alrtCTRL.create({
+        title: 'Finished!',
+        subTitle: "You've finished all the questions",
+        buttons: [{
+          text: 'ok',
+          handler: () =>{
+            console.log("...")
+          }
+        }]
+      });
+      endAlrt.present();
     }
       
     }else{
@@ -59,15 +70,26 @@ export class Game {
 
   }
 
-  nextQ(){
-    console.log()
-    if( this.ctr < this.qQuestions.length-1 ){
-      this.ctr += 1;
-      this.currentQ = this.qQuestions[this.ctrRandom];
-    }
-    else{
+  quitGame(){
+    let quitConfirm = this.alrtCTRL.create({
+      title: 'Are you sure?',
       
-    }
-  }
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Yes clicked');
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            console.log('No clicked');
+          }
+        }
+      ]
+    });
 
-}
+    quitConfirm.present();
+  }
+  }

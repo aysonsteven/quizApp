@@ -75953,7 +75953,8 @@ var QuestionsService = (function () {
 var questionsList = [
     { question: 'Typescript is developed by ?', choices: ['Microsoft', 'Google', 'Apple', 'Dell'], answer: 0 },
     { question: 'It is a programming paradigm based on the concept of "objects", which may contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.', choices: ['Compiler', 'OOP', 'Functional Programming', 'POP'], answer: 1 },
-    { question: 'TypeScript is a typed superset of ?', choices: ['Java', 'Babel', 'JavaScript', 'CSS'], answer: 2 }
+    { question: 'TypeScript is a typed superset of ?', choices: ['Java', 'Babel', 'JavaScript', 'CSS'], answer: 2 },
+    { question: 'A function that is not stored in a program file, but is associated with a variable whose data type is function_handle.', choices: ['Anonymous Function', 'Class', 'Lambda', 'Linear Function'], answer: 0 }
 ];
 
 var __decorate$104 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -75966,11 +75967,12 @@ var __metadata$3 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var Game = (function () {
-    function Game(navCtrl, navPar, http, quizSRV) {
+    function Game(navCtrl, navPar, http, quizSRV, alrtCTRL) {
         this.navCtrl = navCtrl;
         this.navPar = navPar;
         this.http = http;
         this.quizSRV = quizSRV;
+        this.alrtCTRL = alrtCTRL;
         this.ctr = 0;
         this.ctrRandom = 0;
         this.playerUsername = this.navPar.get('myString');
@@ -75979,7 +75981,6 @@ var Game = (function () {
         this.currentQ = questionsList[this.ctrRandom];
     }
     Game.prototype.onSelectRadio = function (i) {
-        console.log(i);
         this.quizAnswer = i;
     };
     Game.prototype.next = function () {
@@ -75991,28 +75992,50 @@ var Game = (function () {
             }
             else {
                 console.log("end");
+                var endAlrt = this.alrtCTRL.create({
+                    title: 'Finished!',
+                    subTitle: "You've finished all the questions",
+                    buttons: [{
+                            text: 'ok',
+                            handler: function () {
+                                console.log("...");
+                            }
+                        }]
+                });
+                endAlrt.present();
             }
         }
         else {
             console.log(this.quizAnswer, "is wrong");
         }
     };
-    Game.prototype.nextQ = function () {
-        console.log();
-        if (this.ctr < this.qQuestions.length - 1) {
-            this.ctr += 1;
-            this.currentQ = this.qQuestions[this.ctrRandom];
-        }
-        else {
-        }
+    Game.prototype.quitGame = function () {
+        var quitConfirm = this.alrtCTRL.create({
+            title: 'Are you sure?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        console.log('Yes clicked');
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function () {
+                        console.log('No clicked');
+                    }
+                }
+            ]
+        });
+        quitConfirm.present();
     };
     Game = __decorate$104([
         Component({
             selector: 'page-game',
-             template: '<ion-header>\n\n  <ion-navbar hideBackButton>\n    <ion-title>GAME</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2>{{ playerUsername }}</h2>\n\n  <ion-list>\n   <ion-label>Question {{ ctr + 1 }} of {{ qQuestions.length }} questions</ion-label>\n   <h3>{{ currentQ.question }}</h3>\n   {{ currentQ.answer }}\n   <ion-list inset>\n          <ion-item *ngFor="let choice of currentQ.choices; let i=index">\n              <ion-label>{{ i }}{{choice}}</ion-label>\n              \n              <ion-radio value="{{ i }}" checked="false" (click)="onSelectRadio(i)"></ion-radio>\n              \n          </ion-item>\n        </ion-list>\n    <button id="submit" value="submit" secondary round block (click)="next()" ion-button>Submit Answer</button>\n    <button secondary round block (click)="nextQ()" ion-button>>>>></button>\n  </ion-list>\n\n</ion-content>',
+             template: '<ion-header>\n\n  <ion-navbar hideBackButton>\n    <ion-title>GAME</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2>Welcome: {{ playerUsername }}</h2>\n\n  <ion-list>\n   <ion-label>Question {{ ctr + 1 }} of {{ qQuestions.length }} questions</ion-label>\n   <h3>{{ currentQ.question }}</h3>\n \n   <ion-list radio-group inset>\n          <ion-item *ngFor="let choice of currentQ.choices; let i=index">\n              <ion-label>{{choice}}</ion-label>\n              \n              <ion-radio value="{{ i }}" checked="false" (click)="onSelectRadio(i)"></ion-radio>\n              \n          </ion-item>\n        </ion-list>\n    <button id="submit" value="submit" round block (click)="next()" ion-button>Submit Answer</button>\n    <button secondary block (click)="quitGame()" ion-button outline color="danger">Quit</button>\n  </ion-list>\n\n</ion-content>',
             providers: [QuestionsService]
         }), 
-        __metadata$3('design:paramtypes', [NavController, NavParams, Http, QuestionsService])
+        __metadata$3('design:paramtypes', [NavController, NavParams, Http, QuestionsService, AlertController])
     ], Game);
     return Game;
 }());
@@ -76050,7 +76073,7 @@ var HomePage = (function () {
     HomePage = __decorate$103([
         Component({
             selector: 'page-home',
-             template: '<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Quiz\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <ion-item>\n      <ion-label floating>Player name: </ion-label>\n      <ion-input [(ngModel)]="playerName"></ion-input>\n    </ion-item>\n  </ion-list>\n  <div padding>\n    <button (click)="onClickProceed(playerName)" ion-button round block>PROCEED</button>\n  </div>\n</ion-content>\n'
+             template: '<ion-header>\n  <ion-navbar>\n    <ion-title>\n      \n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <ion-item>\n      <ion-label floating>Player name: </ion-label>\n      <ion-input [(ngModel)]="playerName"></ion-input>\n    </ion-item>\n  </ion-list>\n  <div padding>\n    <button (click)="onClickProceed(playerName)" ion-button round block>PROCEED</button>\n  </div>\n</ion-content>\n'
         }), 
         __metadata$2('design:paramtypes', [NavController, ModalController, AlertController])
     ], HomePage);
