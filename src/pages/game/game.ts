@@ -42,8 +42,17 @@ export class Game {
   }
 
  next(){
-    
-    if(this.quizAnswer == this.currentQ.answer){
+
+   if (this.quizAnswer == "" || this.quizAnswer == null){
+     let noanswerAlrt = this.alrtCTRL.create({
+       title: 'No answer selected',
+       subTitle: 'Please choose your answer!',
+       buttons: ['Ok']
+     });
+     noanswerAlrt.present();
+   }else{
+     
+      if(this.quizAnswer == this.currentQ.answer){
       console.log("Correct");
       if( this.ctr < this.qQuestions.length-1 ){
       this.ctr += 1;
@@ -68,7 +77,10 @@ export class Game {
       console.log(this.quizAnswer, "is wrong");
     }
 
-  }
+
+    }
+
+}
 
   quitGame(){
     let quitConfirm = this.alrtCTRL.create({
