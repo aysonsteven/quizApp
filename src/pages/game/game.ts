@@ -53,8 +53,9 @@ export class Game {
 
       if(this.quizAnswer == this.currentQ.answer){
       console.log("Correct");
-      if( this.ctr < this.qQuestions.length-1 ){
       this.playerScore += 2;
+      if( this.ctr < this.qQuestions.length-1 ){
+
       this.ctr += 1;
       this.currentQ = this.qQuestions[this.ctr];
       this.quizAnswer = null;
@@ -68,6 +69,7 @@ export class Game {
         buttons: [{
           text: 'ok',
           handler: () =>{
+            this.navCtrl.pop();
             this.navCtrl.push(Final, {
               myString: [this.playerScore, this.playerUsername],
               
@@ -80,6 +82,33 @@ export class Game {
       
     }else{
       console.log(this.quizAnswer, "is wrong");
+      if( this.ctr < this.qQuestions.length-1 ){
+
+      this.ctr += 1;
+      this.currentQ = this.qQuestions[this.ctr];
+      this.quizAnswer = null;
+      
+    }else{
+      console.log("end");
+      let endAlrt = this.alrtCTRL.create({
+        title: 'Finished!',
+        subTitle: "You've finished all the questions",
+        buttons: [{
+          text: 'ok',
+          handler: () =>{
+            this.navCtrl.pop();
+            this.navCtrl.push(Final, {
+              myString: [this.playerScore, this.playerUsername],
+              
+            })
+          }
+        }]
+      });
+      endAlrt.present();
+    }
+
+
+
     }
 
 

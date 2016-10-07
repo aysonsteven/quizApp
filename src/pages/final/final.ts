@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Game } from '../game/game';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 
@@ -36,7 +37,11 @@ export class Final {
             buttons:[{
               text: 'Ok',
               handler: ()=>{
-                console.log('restart function')
+                this.navCtrl.pop();
+                this.navCtrl.push(Game,{
+                  myString: this.pName
+                })
+                
               }
             }]
           })
