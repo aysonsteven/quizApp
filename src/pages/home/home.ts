@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { Game } from '../game/game';
-
-import { NavController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -12,11 +9,11 @@ import { AlertController } from 'ionic-angular';
 export class HomePage {
 
   playerName:string;
-
+  
   constructor(public navCtrl: NavController, private modalCTRL: ModalController, private alrtCTRL: AlertController) {
     
   }
-
+  
   onClickProceed(){
     if (this.playerName == "" || this.playerName == null){
       let msgAlert = this.alrtCTRL.create({
@@ -30,9 +27,10 @@ export class HomePage {
     else{
       this.navCtrl.push(Game, {
         myString: this.playerName
-      });
+      });   
+      this.playerName = "";
     }
-    
+ 
   }
 
 }

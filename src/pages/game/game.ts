@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { QuestionsService } from '../../providers/questions.service';
 import { QuestionType } from '../../providers/questions';
 import { questionsList } from '../../providers/questions-list';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { NavParams } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { Final } from '../final/final';
 
 
 @Component({
@@ -26,12 +25,12 @@ export class Game {
   ctr:number = 0;
   ctrRandom:number = 0;
   playerUsername: string;
-
-  constructor(public navCtrl: NavController, private navPar: NavParams, private http: Http, private quizSRV: QuestionsService, private alrtCTRL: AlertController) {
+  playerScore: number = 0;
+  constructor(private nav: NavController, private navCtrl: NavController, private navPar: NavParams, private http: Http, private quizSRV: QuestionsService, private alrtCTRL: AlertController) {
     this.playerUsername = this.navPar.get('myString');
     this.qQuestions = questionsList
 
-    this.ctrRandom = Math.floor(Math.random() * (this.qQuestions.length - 0 + 1)) + 0
+    this.ctrRandom = Math.floor(Math.random() * (this.qQuestions.length - 1 + 1)) + 0
 
     this.currentQ = questionsList[this.ctrRandom]; 
    
@@ -43,7 +42,7 @@ export class Game {
 
  next(){
 
-   if (this.quizAnswer == "" || this.quizAnswer == null){
+   if (this.quizAnswer == null){
      let noanswerAlrt = this.alrtCTRL.create({
        title: 'No answer selected',
        subTitle: 'Please choose your answer!',
@@ -51,12 +50,15 @@ export class Game {
      });
      noanswerAlrt.present();
    }else{
-     
+
       if(this.quizAnswer == this.currentQ.answer){
       console.log("Correct");
       if( this.ctr < this.qQuestions.length-1 ){
+      this.playerScore += 2;
       this.ctr += 1;
       this.currentQ = this.qQuestions[this.ctr];
+      this.quizAnswer = null;
+      
     }
     else{
       console.log("end");
@@ -66,7 +68,10 @@ export class Game {
         buttons: [{
           text: 'ok',
           handler: () =>{
-            console.log("...")
+            this.navCtrl.push(Final, {
+              myString: [this.playerScore, this.playerUsername],
+              
+            })
           }
         }]
       });
@@ -85,12 +90,15 @@ export class Game {
   quitGame(){
     let quitConfirm = this.alrtCTRL.create({
       title: 'Are you sure?',
-      
+      message: 'Are you sure you want to quit?',
       buttons: [
         {
           text: 'Yes',
           handler: () => {
-            console.log('Yes clicked');
+            this.navCtrl.pop();
+            this.navCtrl.push(Final,{
+              myString: [ this.playerScore, this.playerUsername ]
+            });
           }
         },
         {
