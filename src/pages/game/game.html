@@ -8,12 +8,22 @@
 
 
 <ion-content padding>
-  <h2>Welcome: {{ playerUsername }}</h2>
+  <ion-card>
+
+  <ion-card-header>
+   <h2>Welcome: {{ playerUsername }}</h2>
+  </ion-card-header>
+
+  <ion-card-content>
   <h3>Score: {{ playerScore }}</h3>
+  </ion-card-content>
+
+</ion-card>
+  
 
   <ion-list>
    <ion-label>Question {{ ctr + 1 }} of {{ qQuestions.length }} questions</ion-label>
-   <h3>{{ currentQ.question }}</h3>
+   <p>{{ currentQ.question }}</p>
  
    <ion-list radio-group inset>
           <ion-item *ngFor="let choice of currentQ.choices; let i=index">
@@ -23,7 +33,8 @@
               
           </ion-item>
         </ion-list>
-    <button id="submit" value="submit" round block (click)="next()" ion-button>Submit Answer</button>
+    <button id="submit" value="submit" block (click)="next()" ion-button>Submit Answer</button>
+    <div></div>
     <button secondary block (click)="quitGame()" ion-button outline color="danger">Quit</button>
   </ion-list>
 

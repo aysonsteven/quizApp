@@ -21083,3 +21083,18 @@ sub {
     padding-top: calc(16px + 20px);
   }
 }
+
+page-home ion-card {
+  position: relative;
+  text-align: center;
+}
+
+page-home .card-title {
+  position: absolute;
+  top: 36%;
+  font-size: 1.8em;
+  width: 100%;
+  font-weight: bold;
+  color: #234;
+  opacity: 30%;
+}
