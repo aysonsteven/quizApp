@@ -76217,7 +76217,7 @@ var HomePage = (function () {
     HomePage = __decorate$103([
         Component({
             selector: 'page-home',
-             template: '<ion-header>\n  <ion-navbar>\n    <ion-title>\n      QUIZ App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n   <ion-card>\n    <img src="http://www.kingfisherreaders.com/images/header1.png"/>\n    <div class="card-title">Quiz App</div> \n  </ion-card>\n<div></div>\n\n  <ion-list>\n    <ion-item>\n      <ion-label floating>Player name: </ion-label>\n      <ion-input [(ngModel)]="playerName"></ion-input>\n    </ion-item>\n  </ion-list>\n  <div padding>\n    <button (click)="onClickProceed(playerName)" ion-button round outline block>PROCEED</button>\n  </div>\n</ion-content>\n'
+             template: '<ion-header>\n  <ion-navbar>\n    <ion-title>\n      QUIZ App\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n   <ion-card>\n    <img src="img/header1.png"/>\n    <div class="card-title">Quiz App</div> \n  </ion-card>\n<div></div>\n  <ion-list>\n    <ion-item>\n      <ion-label floating>Player name: </ion-label>\n      <ion-input [(ngModel)]="playerName"></ion-input>\n    </ion-item>\n  </ion-list>\n  <div padding>\n    <button (click)="onClickProceed(playerName)" ion-button round outline block>PROCEED</button>\n  </div>\n</ion-content>\n'
         }), 
         __metadata$2('design:paramtypes', [NavController, AlertController])
     ], HomePage);
