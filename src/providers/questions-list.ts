@@ -18,7 +18,7 @@ export const questionsList = [
   { question: 'Is a general-purpose, concurrent, functional programming language. It is also a garbage-collected runtime system.', choices: ['Erlang','Java','Gulp','C#'], answer: 0 },
   { question: 'Is the most mature, stable, and powerful professional grade CSS extension language in the world.', choices: ['Bootstrap','Sass','Stylesheet','MD'], answer: 1 },
   { question: 'Is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first web sites.?', choices: ['ionicons','Sass','CSS3','Bootstrap'], answer: 3 },
-  { question: 'Is a forked project of GNOME2. It provides an intuitive and attractive desktop environment using traditional metaphors for Linux and other Unix-like operating systems.', choices: ['MATE','GNOME3','GNOME2','distro'], answer: 0 }
+  { question: 'Is a community-driven Linux distribution based on Debian and Ubuntu that strives to be a "modern, elegant and comfortable operating system which is both powerful and easy to use.', choices: ['Ubuntu','Fedora','Mint','Debian'], answer: 0 }
   ];
         
     
