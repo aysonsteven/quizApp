@@ -2,6 +2,7 @@ export const questionsList = [
   { question: 'Typescript is developed by ?', choices: ['Microsoft','Google','Apple','Dell'], answer: 0 }, 
   { question: 'It is a programming paradigm based on the concept of "objects", which may contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.', choices: ['Compiler','OOP','Functional Programming','POP'], answer: 1 },        
   { question: 'TypeScript is a typed superset of ?', choices: ['Java','Babel','JavaScript','CSS'], answer: 2 },
+  /*
   { question: 'A function that is not stored in a program file, but is associated with a variable whose data type is function_handle.', choices: ['Anonymous Function', 'Class', 'Lambda', 'Linear Function'], answer: 0 },
   { question: 'This is an open-source, cross-platform JavaScript runtime environment for developing a diverse variety of tools and applications.', choices: ['JQuery', 'Module', 'NodeJS', 'Types'], answer: 2 },
   { question: 'It consists of a command line client that interacts with a remote registry. It allows users to consume and distribute JavaScript modules that are available on the registry.', choices: ['AJAX', 'npm', 'Babel', 'ReactJS'], answer: 1 },
@@ -19,6 +20,7 @@ export const questionsList = [
   { question: 'Is the most mature, stable, and powerful professional grade CSS extension language in the world.', choices: ['Bootstrap','Sass','Stylesheet','MD'], answer: 1 },
   { question: 'Is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first web sites.?', choices: ['ionicons','Sass','CSS3','Bootstrap'], answer: 3 },
   { question: 'Is a community-driven Linux distribution based on Debian and Ubuntu that strives to be a "modern, elegant and comfortable operating system which is both powerful and easy to use.', choices: ['Ubuntu','Fedora','Mint','Debian'], answer: 0 }
+  */
   ];
         
     
