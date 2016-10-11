@@ -82,6 +82,11 @@ export class Game {
       
     }else{
       console.log(this.quizAnswer, "is wrong");
+      let alrtIncorrect = this.alrtCTRL.create({
+        title: 'Incorrect',
+        subTitle: 'Your answer is incorrect.',
+        buttons: ['Ok']
+      })
       if( this.ctr < this.qQuestions.length-1 ){
 
       this.ctr += 1;

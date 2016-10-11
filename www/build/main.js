@@ -80004,6 +80004,11 @@ var Game = (function () {
             }
             else {
                 console.log(this.quizAnswer, "is wrong");
+                var alrtIncorrect = this.alrtCTRL.create({
+                    title: 'Incorrect',
+                    subTitle: 'Your answer is incorrect.',
+                    buttons: ['Ok']
+                });
                 if (this.ctr < this.qQuestions.length - 1) {
                     this.ctr += 1;
                     this.currentQ = this.qQuestions[this.ctr];
