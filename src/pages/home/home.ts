@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Game } from '../game/game';
 import { NavController, AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,7 @@ export class HomePage {
 
   playerName:string;
   
-  constructor(public navCtrl: NavController, private alrtCTRL: AlertController) {
+  constructor(public navCtrl: NavController, private alrtCTRL: AlertController, private platform: Platform) {
     
   }
   

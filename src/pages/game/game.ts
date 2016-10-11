@@ -32,7 +32,7 @@ export class Game {
 
     this.ctrRandom = Math.floor(Math.random() * (this.qQuestions.length - 1 + 1)) + 0
 
-    this.currentQ = questionsList[this.ctrRandom]; 
+    this.currentQ = questionsList[this.ctr]; 
    
   }
   onSelectRadio(i){
@@ -57,6 +57,7 @@ export class Game {
       if( this.ctr < this.qQuestions.length-1 ){
 
       this.ctr += 1;
+      this.ctrRandom +=1;
       this.currentQ = this.qQuestions[this.ctr];
       this.quizAnswer = null;
       

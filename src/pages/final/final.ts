@@ -12,7 +12,7 @@ export class Final {
   
   mainString:string;
 
-  finalScore;
+  finalScore:string;
   pName: string;
 
   constructor(public navCtrl: NavController, private navPar: NavParams, private navP: NavParams, private alrtCTRL: AlertController, private platform: Platform) {
@@ -66,7 +66,9 @@ export class Final {
         text:'Yes',
         handler: ()=>{
           console.log("exit")
-          this.platform.exitApp();
+          //this.platform.exitApp();
+          this.navCtrl.pop();
+          this.navCtrl.pop();
         }
       }]
     })
