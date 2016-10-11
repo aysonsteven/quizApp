@@ -79853,14 +79853,16 @@ var __metadata$5 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var Final = (function () {
-    function Final(navCtrl, navPar, navP, alrtCTRL) {
+    function Final(navCtrl, navPar, navP, alrtCTRL, platform) {
         this.navCtrl = navCtrl;
         this.navPar = navPar;
         this.navP = navP;
         this.alrtCTRL = alrtCTRL;
+        this.platform = platform;
         this.mainString = this.navPar.get('myString');
         this.pName = this.mainString[1];
         this.finalScore = this.mainString[0];
+        this.platform = platform;
     }
     Final.prototype.ionViewDidLoad = function () {
         console.log('Hello Final Page');
@@ -79897,7 +79899,22 @@ var Final = (function () {
         });
         tryAgainALRT.present();
     };
-    Final.prototype.quitGame = function () {
+    Final.prototype.exitGame = function () {
+        var _this = this;
+        var exitALRT = this.alrtCTRL.create({
+            title: 'Exit App?',
+            subTitle: 'Are you sure you want to exit the app',
+            buttons: [{
+                    text: 'Yes',
+                    handler: function () {
+                        console.log("exit");
+                        _this.platform.exitApp();
+                    }
+                }]
+        });
+        exitALRT.present();
+    };
+    Final.prototype.newGame = function () {
         var _this = this;
         var quitAlrt = this.alrtCTRL.create({
             title: 'Are you sure?',
@@ -79930,9 +79947,9 @@ var Final = (function () {
     Final = __decorate$106([
         Component({
             selector: 'page-final',
-             template: '<ion-content padding outline>\n  <ion-card>\n\n  <ion-card-header>\n    Card Header\n  </ion-card-header>\n\n  <ion-card-content>\n    Content\n  </ion-card-content>\n\n</ion-card>\n\n  <ion-list>\n    <ion-item>\n      <div>Player: {{ pName }} </div>\n      <div>Score: {{ finalScore }} </div>\n    </ion-item>\n  </ion-list>\n<div padding>\n  <button ion-button outline block color="secondary" (click)="tryAgain()">Play again!</button>\n  <button ion-button outline block color="danger" (click)="quitGame()">Quit</button>\n</div>\n</ion-content>\n'
+             template: '<ion-content padding outline>\n  <ion-card>\n\n  <ion-card-header>\n    Card Header\n  </ion-card-header>\n\n  <ion-card-content>\n    Content\n  </ion-card-content>\n\n</ion-card>\n\n  <ion-list>\n    <ion-item>\n      <div>Player: {{ pName }} </div>\n      <div>Score: {{ finalScore }} </div>\n    </ion-item>\n  </ion-list>\n<div padding>\n  <button ion-button outline block color="secondary" (click)="tryAgain()">Play again!</button>\n  <button ion-button clear block color="secondary" (click)="newGame()">New Game</button>\n  <button ion-button outline block color="danger" (click)="exitGame()">Exit</button>\n</div>\n</ion-content>\n'
         }), 
-        __metadata$5('design:paramtypes', [NavController, NavParams, NavParams, AlertController])
+        __metadata$5('design:paramtypes', [NavController, NavParams, NavParams, AlertController, Platform])
     ], Final);
     return Final;
 }());
@@ -80009,6 +80026,7 @@ var Game = (function () {
                     subTitle: 'Your answer is incorrect.',
                     buttons: ['Ok']
                 });
+                alrtIncorrect.present();
                 if (this.ctr < this.qQuestions.length - 1) {
                     this.ctr += 1;
                     this.currentQ = this.qQuestions[this.ctr];

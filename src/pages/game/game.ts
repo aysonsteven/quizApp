@@ -87,6 +87,7 @@ export class Game {
         subTitle: 'Your answer is incorrect.',
         buttons: ['Ok']
       })
+      alrtIncorrect.present();
       if( this.ctr < this.qQuestions.length-1 ){
 
       this.ctr += 1;

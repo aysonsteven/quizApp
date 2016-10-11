@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Game } from '../game/game';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 
 
 @Component({
@@ -14,10 +15,11 @@ export class Final {
   finalScore;
   pName;
 
-  constructor(public navCtrl: NavController, private navPar: NavParams, private navP: NavParams, private alrtCTRL: AlertController) {
+  constructor(public navCtrl: NavController, private navPar: NavParams, private navP: NavParams, private alrtCTRL: AlertController, private platform: Platform) {
     this.mainString = this.navPar.get('myString');
     this.pName = this.mainString[1];
-    this.finalScore = this.mainString[0]
+    this.finalScore = this.mainString[0];
+    this.platform = platform;
   }
 
   ionViewDidLoad() {
@@ -56,7 +58,21 @@ export class Final {
     })
     tryAgainALRT.present();
   }
-  quitGame(){
+  exitGame(){
+    let exitALRT = this.alrtCTRL.create({
+      title: 'Exit App?',
+      subTitle: 'Are you sure you want to exit the app',
+      buttons: [{
+        text:'Yes',
+        handler: ()=>{
+          console.log("exit")
+          this.platform.exitApp();
+        }
+      }]
+    })
+    exitALRT.present();
+  }
+  newGame(){
     let quitAlrt = this.alrtCTRL.create({
       title: 'Are you sure?',
       subTitle: 'Are you sure you want to quit?',
