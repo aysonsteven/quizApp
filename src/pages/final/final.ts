@@ -10,10 +10,10 @@ import { Platform } from 'ionic-angular';
 })
 export class Final {
   
-  mainString;
+  mainString:string;
 
   finalScore;
-  pName;
+  pName: string;
 
   constructor(public navCtrl: NavController, private navPar: NavParams, private navP: NavParams, private alrtCTRL: AlertController, private platform: Platform) {
     this.mainString = this.navPar.get('myString');

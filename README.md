@@ -3,8 +3,10 @@
 
   Flowchart
 
-![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizApp-FlowChart.jpg)
+![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizFlowChart.jpg)
 #QuitButton
-![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizApp-FlowChart_Quit.jpg)
+![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizFlowChart_Quit.jpg)
 #PlayAgain
-![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizApp-FlowChart_PlayAgain.jpg)
+![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizFlowChart_PlayAgain.jpg)
+#Exit
+![ScreenShot](https://github.com/aysonsteven/quizApp/blob/master/flowchart%20diagram/quizFlowChart_Exit.jpg)
