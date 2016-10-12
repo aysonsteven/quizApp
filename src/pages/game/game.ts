@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { QuestionsService } from '../../providers/questions.service';
 import { QuestionType } from '../../providers/questions';
 import { questionsList } from '../../providers/questions-list';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController  } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Final } from '../final/final';
 
@@ -26,7 +26,7 @@ export class Game {
   ctrRandom:number = 0;
   playerUsername: string;
   playerScore: number = 0;
-  constructor(private nav: NavController, private navCtrl: NavController, private navPar: NavParams, private http: Http, private quizSRV: QuestionsService, private alrtCTRL: AlertController) {
+  constructor(private toastCtrl: ToastController , private nav: NavController, private navCtrl: NavController, private navPar: NavParams, private http: Http, private quizSRV: QuestionsService, private alrtCTRL: AlertController) {
     this.playerUsername = this.navPar.get('myString');
     this.qQuestions = questionsList
 
@@ -84,12 +84,11 @@ export class Game {
       
     }else{
       console.log(this.quizAnswer, "is wrong");
-      let alrtIncorrect = this.alrtCTRL.create({
-        title: 'Incorrect',
-        subTitle: 'Your answer is incorrect.',
-        buttons: ['Ok']
-      })
-      alrtIncorrect.present();
+      let toast = this.toastCtrl.create({
+      message: 'Answer is incorrect',
+      duration: 3000
+    });
+    toast.present();
       if( this.ctr < this.qQuestions.length-1 ){
 
       this.ctr += 1;

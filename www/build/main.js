@@ -79968,7 +79968,8 @@ var __metadata$3 = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var Game = (function () {
-    function Game(nav, navCtrl, navPar, http, quizSRV, alrtCTRL) {
+    function Game(toastCtrl, nav, navCtrl, navPar, http, quizSRV, alrtCTRL) {
+        this.toastCtrl = toastCtrl;
         this.nav = nav;
         this.navCtrl = navCtrl;
         this.navPar = navPar;
@@ -80028,12 +80029,11 @@ var Game = (function () {
             }
             else {
                 console.log(this.quizAnswer, "is wrong");
-                var alrtIncorrect = this.alrtCTRL.create({
-                    title: 'Incorrect',
-                    subTitle: 'Your answer is incorrect.',
-                    buttons: ['Ok']
+                var toast = this.toastCtrl.create({
+                    message: 'Answer is incorrect',
+                    duration: 3000
                 });
-                alrtIncorrect.present();
+                toast.present();
                 if (this.ctr < this.qQuestions.length - 1) {
                     this.ctr += 1;
                     this.currentQ = this.qQuestions[this.ctr];
@@ -80090,7 +80090,7 @@ var Game = (function () {
              template: '<ion-header>\n\n  <ion-navbar hideBackButton>\n    <ion-title>GAME</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n<ion-card>\n    <img src="assets/img/bg.header.png"/>\n    <div class="card-title">Welcome: {{ playerUsername }}</div>\n    <div class="card-subtitle">Score: {{ playerScore }}</div>\n  </ion-card>\n  \n\n  <ion-list>\n   <ion-label>Question {{ ctr + 1 }} of {{ qQuestions.length }} questions</ion-label>\n   <p>{{ currentQ.question }}</p>\n \n   <ion-list radio-group inset>\n          <ion-item *ngFor="let choice of currentQ.choices; let i=index">\n              <ion-label>{{choice}}</ion-label>\n              \n              <ion-radio value="{{ i }}" checked="false" (click)="onSelectRadio(i)"></ion-radio>\n              \n          </ion-item>\n        </ion-list>\n    <button id="submit" value="submit" block (click)="next()" ion-button>Submit Answer</button>\n    <div></div>\n    <button secondary block (click)="quitGame()" ion-button outline color="danger">Quit</button>\n  </ion-list>\n\n</ion-content>',
             providers: [QuestionsService]
         }), 
-        __metadata$3('design:paramtypes', [NavController, NavController, NavParams, Http, QuestionsService, AlertController])
+        __metadata$3('design:paramtypes', [ToastController, NavController, NavController, NavParams, Http, QuestionsService, AlertController])
     ], Game);
     return Game;
 }());
