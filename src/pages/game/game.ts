@@ -21,7 +21,7 @@ export class Game {
   currentQ:QuestionType;
 
   qQuestions;
-
+  correctCTR:number=0;
   ctr:number = 0;
   ctrRandom:number = 0;
   playerUsername: string;
@@ -54,6 +54,7 @@ export class Game {
       if(this.quizAnswer == this.currentQ.answer){
       console.log("Correct");
       this.playerScore += 2;
+      this.correctCTR +=1;
       if( this.ctr < this.qQuestions.length-1 ){
 
       this.ctr += 1;
@@ -105,7 +106,7 @@ export class Game {
           handler: () =>{
             this.navCtrl.pop();
             this.navCtrl.push(Final, {
-              myString: [this.playerScore, this.playerUsername],
+              myString: [this.playerScore, this.playerUsername, this.correctCTR, this.qQuestions.length ],
               
             })
           }
@@ -133,7 +134,7 @@ export class Game {
           handler: () => {
             this.navCtrl.pop();
             this.navCtrl.push(Final,{
-              myString: [ this.playerScore, this.playerUsername ]
+              myString: [ this.playerScore, this.playerUsername, this.correctCTR, this.qQuestions.length ]
             });
           }
         },

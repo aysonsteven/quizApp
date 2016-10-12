@@ -11,7 +11,7 @@
     "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
-    "outDir": "c:\\Users\\Samsung\\Desktop\\project\\quizApp\\.tmp",
+    "outDir": "C:\\Users\\Samsung\\Desktop\\project\\quizApp\\.tmp",
     "noEmitOnError": true
   },
   "exclude": [
@@ -22,7 +22,7 @@
     "rewriteTsconfig": false
   },
   "include": [
-    "c:\\Users\\Samsung\\Desktop\\project\\quizApp\\src\\app\\main.dev.ts",
-    "c:\\Users\\Samsung\\Desktop\\project\\quizApp\\src\\**\\*.d.ts"
+    "C:\\Users\\Samsung\\Desktop\\project\\quizApp\\src\\app\\main.dev.ts",
+    "C:\\Users\\Samsung\\Desktop\\project\\quizApp\\src\\**\\*.d.ts"
   ]
 }

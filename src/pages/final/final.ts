@@ -12,11 +12,16 @@ export class Final {
   
   mainString:string;
 
+  maxQuestions:string;
+
   finalScore:string;
   pName: string;
+  correctCount:string;
 
   constructor(public navCtrl: NavController, private navPar: NavParams, private navP: NavParams, private alrtCTRL: AlertController, private platform: Platform) {
     this.mainString = this.navPar.get('myString');
+    this.maxQuestions = this.mainString[3];
+    this.correctCount = this.mainString[2];
     this.pName = this.mainString[1];
     this.finalScore = this.mainString[0];
     this.platform = platform;
