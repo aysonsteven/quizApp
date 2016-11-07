@@ -7,8 +7,18 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+   <ion-card>
+    <img src="assets/img/header1.png"/>
+    <div class="card-title">Quiz App</div> 
+  </ion-card>
+<div></div>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Player name: </ion-label>
+      <ion-input [(ngModel)]="playerName"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button (click)="onClickProceed(playerName)" ion-button round outline block>PROCEED</button>
+  </div>
 </ion-content>

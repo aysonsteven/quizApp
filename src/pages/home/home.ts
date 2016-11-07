@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
+import { QuizPage } from '../quiz/quiz'
+import { NavController, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -8,8 +8,33 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  playerName:string;
+
+  constructor(
+    public navCtrl: NavController,
+    private alrtCTRL: AlertController
+    ) {
     
+  }
+
+
+    onClickProceed(){
+    if (this.playerName == "" || this.playerName == null){
+      let msgAlert = this.alrtCTRL.create({
+        title: 'No name',
+        subTitle: 'Player name required',
+        buttons: ['Ok']
+      });
+      msgAlert.present();
+    }
+
+    else{
+      this.navCtrl.push( QuizPage, {
+        myString: this.playerName
+      });   
+      this.playerName = "";
+    }
+ 
   }
 
 }
