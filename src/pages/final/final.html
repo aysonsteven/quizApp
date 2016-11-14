@@ -1,0 +1,24 @@
+<ion-content padding outline>
+  <ion-card>
+
+  <ion-card-header>
+    Card Header
+  </ion-card-header>
+
+  <ion-card-content>
+    Content
+  </ion-card-content>
+
+</ion-card>
+
+  <ion-list>
+    <ion-item>
+      <div>Player: {{ playerName }} </div>
+      <div>Score: {{ finalScore }} </div>
+    </ion-item>
+  </ion-list>
+<div padding>
+  <button ion-button outline block color="secondary" (click)="tryAgain()">Play again!</button>
+  <button ion-button outline block color="danger" (click)="quitGame()">Quit</button>
+</div>
+</ion-content>

@@ -1,4 +1,16 @@
 page-quiz {
+      [progress] {
+        background-color: blue;
+        color:white;
+    }
+    [error] {
+        background-color: red;
+        color: white;
+    }
+    [success] {
+        background-color: green;
+        color: white;
+    }
     ion-card {
     position: relative;
     text-align: center;

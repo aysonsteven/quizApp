@@ -17,24 +17,50 @@
   <ion-card>
       <img src="assets/img/bg.header.png"/>
       <div class="card-title">Welcome: {{ playerUsername }}</div>
-      <div class="card-subtitle">Score: {{ playerScore }}</div>
+      <div class="card-subtitle">Score: {{ score }}</div>
   </ion-card>
 
-  <ion-list>
+  <!--<ion-list>
    <ion-label>Question {{ ctr + 1 }} of {{ questions.length }} questions</ion-label>
-   <!--<p>{{ currentQ.question }}</p>-->
- 
-   <!--<ion-list radio-group inset>
-          <ion-item *ngFor="let choice of currentQ.choices; let i=index">
-              <ion-label>{{choice}}</ion-label>
-              
-              <ion-radio value="{{ i }}" checked="false" (click)="onSelectRadio(i)"></ion-radio>
-              
-          </ion-item>
-        </ion-list>-->
+
     <button id="submit" value="submit" block (click)="next()" ion-button>Submit Answer</button>
     <div></div>
     <button secondary block (click)="quitGame()" ion-button outline color="danger">Quit</button>
-  </ion-list>
+  </ion-list>-->
+  <section *ngIf="!loader">
+    <ion-label>Question {{ ctr + 1 }} of {{ Questions.length }} questions</ion-label>
+    <ion-list >
+      <ion-item >
+        {{ currentQ.value.question }}
+      </ion-item>
+    </ion-list>
+
+    <ion-list radio-group>
+      <ion-item>
+        <ion-label>{{ currentQ.value.choice1 }}</ion-label>
+        <ion-radio checked="false"  value=1 (click)='selectedChoice(1)'></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ currentQ.value.choice2 }}</ion-label>
+        <ion-radio checked="false"   value=2 (click)='selectedChoice(2)'></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ currentQ.value.choice3 }}</ion-label>
+        <ion-radio checked="false"   value=3 (click)='selectedChoice(3)'></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ currentQ.value.choice4 }}</ion-label>
+        <ion-radio checked="false"  value=4 (click)='selectedChoice(4)'></ion-radio>
+      </ion-item>
+    </ion-list>
+      <div progress *ngIf=" errorCheck?.progress "><ion-spinner></ion-spinner>{{ errorCheck.progress }}</div>
+      <div success *ngIf=" errorCheck?.success "><ion-icon name="checkmark"></ion-icon>{{ errorCheck.success }}</div>
+      <div error *ngIf=" errorCheck?.error "><ion-icon name="bug"></ion-icon>{{ errorCheck.error }}</div>
+    <button ion-button small block outline (click)='onSubmit()'>Submit</button>
+  </section>
+
+    
+
+  <div *ngIf="loader"> <ion-spinner></ion-spinner>please wait...</div>
 
 </ion-content>

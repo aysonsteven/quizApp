@@ -18,6 +18,9 @@
       <ion-input [(ngModel)]="playerName"></ion-input>
     </ion-item>
   </ion-list>
+      <div progress *ngIf=" errorCheck?.progress "><ion-spinner></ion-spinner>{{ errorCheck.progress }}</div>
+      <div success *ngIf=" errorCheck?.success "><ion-icon name="checkmark"></ion-icon>{{ errorCheck.success }}</div>
+      <div error *ngIf=" errorCheck?.error "><ion-icon name="bug"></ion-icon>{{ errorCheck.error }}</div>
   <div padding>
     <button (click)="onClickProceed(playerName)" ion-button round outline block>PROCEED</button>
   </div>
