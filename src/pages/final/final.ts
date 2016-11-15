@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 
 /*
@@ -19,10 +19,11 @@ export class FinalPage {
   finalScore;
   playerName;
 
-  constructor(private navCtrl: NavController, private navPar: NavParams) {
+  constructor(private navCtrl: NavController, private navPar: NavParams, private platform: Platform) {
     this.playerInfo = this.navPar.get('playerInfo');
     this.playerName = this.playerInfo[1];
     this.finalScore = this.playerInfo[0];
+    this.platform = platform;
   }
 
   ionViewDidLoad() {
@@ -35,7 +36,8 @@ export class FinalPage {
   }
 
   quitGame(){
-    console.log('quit::()')
+    console.log('exit app')
+    this.platform.exitApp();
   }
 
 }

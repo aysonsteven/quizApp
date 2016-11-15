@@ -57,6 +57,8 @@
       <div success *ngIf=" errorCheck?.success "><ion-icon name="checkmark"></ion-icon>{{ errorCheck.success }}</div>
       <div error *ngIf=" errorCheck?.error "><ion-icon name="bug"></ion-icon>{{ errorCheck.error }}</div>
     <button ion-button small block outline (click)='onSubmit()'>Submit</button>
+    <button ion-button small block outline (click)='onClickEnd()'>End Quiz</button>
+    
   </section>
 
     

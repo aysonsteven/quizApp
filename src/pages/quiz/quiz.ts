@@ -113,6 +113,13 @@ export class QuizPage {
           console.log( e );
         });
   }
+  onClickEnd(){
+      console.log("end");
+      this.navCtrl.pop();
+      this.navCtrl.setRoot( FinalPage, {
+        playerInfo: [this.score, this.playerUsername]
+      })
+  }
 
   selectedChoice(val){
     console.log('selected answer' + val);
