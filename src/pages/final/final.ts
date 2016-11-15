@@ -15,7 +15,6 @@ import { QuizPage } from '../quiz/quiz';
 export class FinalPage {
 
   playerInfo;
-
   finalScore;
   playerName;
 
