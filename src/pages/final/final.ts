@@ -18,6 +18,10 @@ import { Post } from '../../fireframe2/post';
   templateUrl: 'final.html'
 })
 export class FinalPage {
+    today = new Date();
+    dd = this.today.getDate();
+    mm = this.today.getMonth()+1; //January is 0!
+    yyyy = this.today.getFullYear();
 
   playerInfo;
   playerName:string;
@@ -53,15 +57,21 @@ export class FinalPage {
   }
 
   postHighscore(){
+    let hrs = this.today.getHours() == 0 ? "12" : this.today.getHours() > 12 ? this.today.getHours() - 12 : this.today.getHours();
+    let mins = (this.today.getMinutes() < 10 ? "0" : "") + this.today.getMinutes();
+    let ampm = this.today.getHours() < 12 ? "AM" : "PM";
+    let formattedTime = hrs + ":" + mins + " " + ampm 
     this.post.path = 'Quiz logs'
     this.post
-      .set('Player Name: ', this.playerName)
-      .set('Player Score', this.playerScore.toString())
+      .set( 'Player Name: ', this.playerName )
+      .set( 'Player Score', this.playerScore.toString() )
+      .set( 'Date', this.today.getMonth() + 1 + '/' + this.today.getDate()  +  '/' + this.today.getFullYear() )
+      .set( 'Time' , formattedTime )
       .create( ()=> {
-        console.log('new score');
+        console.log( formattedTime );
         // console.log(this.player.score)
       },e=>{
-        console.error('errorLOG:: (): ' + e)
+        console.error( 'errorLOG:: (): ' + e )
       })
   }
 }
