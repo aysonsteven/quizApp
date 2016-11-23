@@ -2,19 +2,22 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { FinalPage } from '../final/final';
 import {Post} from "../../fireframe2/post";
-import * as _ from 'lodash'
+import { Http } from '@angular/http';
 
-let data = {
-  key: '',
-  value:{
-    question:'',
-    choice1:'',
-    choice2:'',
-    choice3:'',
-    choice4:'',
-    answer:1
-  }
+
+interface quizData{
+  title?:string;
+  content?:string;
+  extra_1:string;
+  extra_2?:string;
+  extra_3?:string;
+  extra_4?:string;
+  extra_5?:string;
+  extra_6?:number;
+  extra_7?:string;
+  extra_8?:string;
 }
+
 /*
   Generated class for the Quiz page.
 
@@ -26,6 +29,8 @@ let data = {
   templateUrl: 'quiz.html'
 })
 export class QuizPage {
+
+  url:string = 'http://xbase.esy.es/';
   errorCheck;
   quizAnswer:number;
   ctr:number = 0;
@@ -34,7 +39,8 @@ export class QuizPage {
   questionID;
   contents;
   questions = [];
-  currentQ = data;
+  title:string;
+  currentQ :quizData = <quizData>{};
   Questions = [];
   total:number;
   playerUsername: string;
@@ -45,28 +51,29 @@ export class QuizPage {
     private question: Post,
     private navPar: NavParams,
     private alrtCtrl: AlertController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private http: Http
     ) {
     this.playerUsername = this.navPar.get('player');
-    this.getQuestions();
+    this.displayQuestions();
+    
     
     // this.currentQ = this.questions[this.ctrRandom]; 
   }
 
   displayQuestions(data?) {
-
-      for( let key of Object.keys(data).reverse() ) {
-        this.questions.push ( {key: key, value: data[key]} );
-        // this.searchedItem.push( {key: key, value: data[key]} );
-         this.Questions = JSON.parse(JSON.stringify(this.questions));
-      }
+    this.http.request( this.url + '?mc=post.search' ).subscribe( res=>{
+      this.questions = JSON.parse(res['_body']).data.rows
+      this.Questions = JSON.parse(res['_body']).data.rows
+      this.showQuiz();
+    })
 
   }
 
   showQuiz(){
     this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0
     this.currentQ = this.questions[this.ctrRandom];
-    console.log( this.currentQ.value.question );
+    console.log( 'showQuiz() ' ,   this.questions[0]);
   }
 
   onSubmit(){
@@ -78,15 +85,16 @@ export class QuizPage {
     if( this.ctr < this.Questions.length-1 ){
       this.ctr+=1;
       this.questions.splice(this.ctrRandom, 1);
-      this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
-      this.currentQ = this.questions[this.ctrRandom];
-      console.log( this.currentQ.value.question );
+
+      console.log( this.currentQ.title );
       // this.quizAnswer = null;
-        if(this.quizAnswer == this.currentQ.value.answer){
+        if(this.quizAnswer == this.currentQ.extra_6){
           console.log('correct')
           this.score +=2;
+      this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
+      this.currentQ = this.questions[this.ctrRandom];
         }
-        else console.log('wrong', this.currentQ.value.answer);
+        else console.log('wrong', this.currentQ.extra_6);
     }
     else{
       console.log("end");
@@ -98,21 +106,21 @@ export class QuizPage {
 
   }
 
-  getQuestions( infinite? ) {
-    this.loader = true;
-    this.question.path = 'question'
-    this.question
-        .gets( data => {
-          if ( ! _.isEmpty(data) ) {
-            this.displayQuestions( data ); 
-            this.loader=false; 
-            this.showQuiz();
-          }
-        },
-        e => {
-          console.log( e );
-        });
-  }
+  // getQuestions( infinite? ) {
+  //   this.loader = true;
+  //   this.question.path = 'question'
+  //   this.question
+  //       .gets( data => {
+  //         if ( ! _.isEmpty(data) ) {
+  //           this.displayQuestions( data ); 
+  //           this.loader=false; 
+  //           this.showQuiz();
+  //         }
+  //       },
+  //       e => {
+  //         console.log( e );
+  //       });
+  // }
   onClickEnd(){
       console.log("end");
       this.navCtrl.pop();
