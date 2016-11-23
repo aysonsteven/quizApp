@@ -84,17 +84,23 @@ export class QuizPage {
 
     if( this.ctr < this.Questions.length-1 ){
       this.ctr+=1;
-      this.questions.splice(this.ctrRandom, 1);
+      
 
       console.log( this.currentQ.title );
       // this.quizAnswer = null;
         if(this.quizAnswer == this.currentQ.extra_6){
           console.log('correct')
           this.score +=2;
-      this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
-      this.currentQ = this.questions[this.ctrRandom];
+          this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
+          this.currentQ = this.questions[this.ctrRandom];
+          this.questions.splice(this.ctrRandom, 1);
         }
-        else console.log('wrong', this.currentQ.extra_6);
+        else {
+          console.log('wrong', this.currentQ.extra_6);
+          this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
+          this.currentQ = this.questions[this.ctrRandom];
+          this.questions.splice(this.ctrRandom, 1);
+        }
     }
     else{
       console.log("end");
