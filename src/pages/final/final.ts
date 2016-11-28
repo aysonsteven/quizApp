@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { QuizPage } from '../quiz/quiz';
 import { Post } from '../../fireframe2/post';
-
+import { HomePage } from '../home/home';
+import { QuizService } from '../../providers/quiz-service';
 
 
 
@@ -26,13 +27,22 @@ export class FinalPage {
   playerInfo;
   playerName:string;
   playerScore:number;
+  
+
+  body = {};
+  postConf = {
+    id:'highscores',
+    name: "players' highscores"
+  }
 
   constructor(
     private navCtrl: NavController, 
     private navPar: NavParams, 
     private platform: Platform,
-    private post: Post
+    private post: Post,
+    private quizSrvc: QuizService
     ) {
+    this.createPostConfig();
     this.playerInfo = this.navPar.get('playerInfo');
 
     this.playerName = this.playerInfo[1]
@@ -41,7 +51,6 @@ export class FinalPage {
 
     this.postHighscore();
   }
-
   ionViewDidLoad() {
     console.log('Hello FinalPage Page');
   }
@@ -50,28 +59,39 @@ export class FinalPage {
       player: this.playerName
     } );
   }
+  createPostConfig(){
+    this.body = {
+      'mc': 'post_config.create',
+      'id': this.postConf.id,
+      'name': this.postConf.name
+    }
+    this.quizSrvc.query( this.body, res=>{
+      console.log( res )
+    }, e=>{
 
-  quitGame(){
-    console.log('exit app')
-    this.platform.exitApp();
+    })
+  }
+  onClickChange(){
+    this.navCtrl.setRoot( HomePage );
   }
 
   postHighscore(){
+    ////formatting time : hours, minutes, AMPM
     let hrs = this.today.getHours() == 0 ? "12" : this.today.getHours() > 12 ? this.today.getHours() - 12 : this.today.getHours();
     let mins = (this.today.getMinutes() < 10 ? "0" : "") + this.today.getMinutes();
     let ampm = this.today.getHours() < 12 ? "AM" : "PM";
     let formattedTime = hrs + ":" + mins + " " + ampm 
-    this.post.path = 'Quiz logs'
-    this.post
-      .set( 'Player Name: ', this.playerName )
-      .set( 'Player Score', this.playerScore.toString() )
-      .set( 'Date', this.today.getMonth() + 1 + '/' + this.today.getDate()  +  '/' + this.today.getFullYear() )
-      .set( 'Time' , formattedTime )
-      .create( ()=> {
-        console.log( formattedTime );
-        // console.log(this.player.score)
-      },e=>{
-        console.error( 'errorLOG:: (): ' + e )
-      })
+
+    this.body = {
+      'post_id': this.postConf.id,
+      'title': this.playerName,
+      'content': this.playerScore,
+      'extra_1': formattedTime
+    }
+    this.quizSrvc.post( this.body , s=>{
+      console.log( 'Stats Posted(): ', s )
+    },(e)=>{
+      console.error( 'error posting(): ', e )
+    })
   }
 }

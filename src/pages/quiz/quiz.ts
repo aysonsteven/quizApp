@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { FinalPage } from '../final/final';
-import {Post} from "../../fireframe2/post";
-import { Http } from '@angular/http';
+import { Post} from "../../fireframe2/post";
+import { QuizService } from '../../providers/quiz-service';
 
 
 interface quizData{
@@ -30,12 +30,13 @@ interface quizData{
 })
 export class QuizPage {
 
+  body = {};
   url:string = 'http://xbase.esy.es/';
   errorCheck;
   quizAnswer:number;
   ctr:number = 0;
   ctrRandom:number = 0;
-  loader:boolean;
+  loader:boolean = true;
   questionID;
   contents;
   questions = [];
@@ -52,7 +53,7 @@ export class QuizPage {
     private navPar: NavParams,
     private alrtCtrl: AlertController,
     private toastCtrl: ToastController,
-    private http: Http
+    private quizSrvc: QuizService
     ) {
     this.playerUsername = this.navPar.get('player');
     this.displayQuestions();
@@ -61,12 +62,19 @@ export class QuizPage {
     // this.currentQ = this.questions[this.ctrRandom]; 
   }
 
-  displayQuestions(data?) {
-    this.http.request( this.url + '?mc=post.search' ).subscribe( res=>{
-      this.questions = JSON.parse(res['_body']).data.rows
-      this.Questions = JSON.parse(res['_body']).data.rows
+  displayQuestions() {
+    this.body = {
+      'mc': 'post.search',
+      'options':{
+        'cond': "post_id LIKE 'questions'"
+      }
+    }
+    this.quizSrvc.query( this.body, res=>{
+      this.questions = res.rows;
+      this.Questions = JSON.parse(JSON.stringify(this.questions));
       this.showQuiz();
-    })
+      this.loader = false;
+    },()=>{})
 
   }
 
@@ -81,55 +89,29 @@ export class QuizPage {
       this.errorCheck = { error: 'No answer selected' };
       return;
     }
-
     if( this.ctr < this.Questions.length-1 ){
       this.ctr+=1;
-      
-
       console.log( this.currentQ.title );
       // this.quizAnswer = null;
-        if(this.quizAnswer == this.currentQ.extra_6){
-          console.log('correct')
-          this.score +=2;
-          this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
-          this.currentQ = this.questions[this.ctrRandom];
-          this.questions.splice(this.ctrRandom, 1);
-        }
-        else {
-          console.log('wrong', this.currentQ.extra_6);
-          this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
-          this.currentQ = this.questions[this.ctrRandom];
-          this.questions.splice(this.ctrRandom, 1);
-        }
+        if(this.quizAnswer == this.currentQ.extra_6) this.score +=2;
+        this.randomizedQuestions();
     }
     else{
       console.log("end");
-      this.navCtrl.pop();
+
       this.navCtrl.setRoot( FinalPage, {
         playerInfo: [this.score, this.playerUsername]
       })
     }
-
+  }
+  randomizedQuestions(){
+    this.ctrRandom = Math.floor(Math.random() * (this.questions.length - 1 + 1)) + 0;
+    this.currentQ = this.questions[this.ctrRandom];
+    this.questions.splice(this.ctrRandom, 1);
   }
 
-  // getQuestions( infinite? ) {
-  //   this.loader = true;
-  //   this.question.path = 'question'
-  //   this.question
-  //       .gets( data => {
-  //         if ( ! _.isEmpty(data) ) {
-  //           this.displayQuestions( data ); 
-  //           this.loader=false; 
-  //           this.showQuiz();
-  //         }
-  //       },
-  //       e => {
-  //         console.log( e );
-  //       });
-  // }
   onClickEnd(){
       console.log("end");
-      this.navCtrl.pop();
       this.navCtrl.setRoot( FinalPage, {
         playerInfo: [this.score, this.playerUsername]
       })
@@ -139,8 +121,6 @@ export class QuizPage {
     console.log('selected answer' + val);
     this.quizAnswer = val;
   }
-
-
   ionViewDidLoad() {
     console.log('Hello QuizPage Page');
   }

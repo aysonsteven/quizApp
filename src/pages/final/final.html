@@ -2,23 +2,20 @@
   <ion-card>
 
   <ion-card-header>
-    Card Header
+    Player: {{ playerName }}
   </ion-card-header>
 
   <ion-card-content>
-    Content
+    Score: {{ playerScore }}
   </ion-card-content>
 
 </ion-card>
 
   <ion-list>
-    <ion-item>
-      <div>Player: {{ playerName }} </div>
-      <div>Score: {{ playerScore }} </div>
-    </ion-item>
+
   </ion-list>
 <div padding>
   <button ion-button outline block color="secondary" (click)="tryAgain()">Play again!</button>
-  <button ion-button outline block color="danger" (click)="quitGame()">Quit</button>
+  <button ion-button outline block color="danger" (click)="onClickChange()">Change Player</button>
 </div>
 </ion-content>
