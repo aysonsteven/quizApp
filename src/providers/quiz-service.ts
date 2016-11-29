@@ -11,7 +11,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 @Injectable()
 export class QuizService {
 
-  url:string = 'http://xbase.esy.es'
+  url:string = 'http://www.quizxbase.esy.es'
   constructor(public http: Http) {
     console.log('Hello QuizService Provider');
   }

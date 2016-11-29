@@ -29,6 +29,7 @@
   </ion-list>-->
   <section *ngIf="!loader">
     <ion-label>Question {{ ctr + 1 }} of {{ Questions.length }} questions</ion-label>
+    
     <ion-list >
       <ion-item text-wrap>
        {{ currentQ.title }}
@@ -54,6 +55,7 @@
         <ion-radio checked="false"  value=4 (click)='selectedChoice(4)'></ion-radio>
       </ion-item>
     </ion-list>
+    
       <div progress *ngIf=" errorCheck?.progress "><ion-spinner></ion-spinner>{{ errorCheck.progress }}</div>
       <div success *ngIf=" errorCheck?.success "><ion-icon name="checkmark"></ion-icon>{{ errorCheck.success }}</div>
       <div error *ngIf=" errorCheck?.error "><ion-icon name="bug"></ion-icon>{{ errorCheck.error }}</div>

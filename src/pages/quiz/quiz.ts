@@ -38,9 +38,7 @@ export class QuizPage {
   ctrRandom:number = 0;
   loader:boolean = true;
   questionID;
-  contents;
   questions = [];
-  title:string;
   currentQ :quizData = <quizData>{};
   Questions = [];
   total:number;
@@ -100,7 +98,7 @@ export class QuizPage {
       console.log("end");
 
       this.navCtrl.setRoot( FinalPage, {
-        playerInfo: [this.score, this.playerUsername]
+        playerInfo: [ this.score, this.playerUsername ]
       })
     }
   }
